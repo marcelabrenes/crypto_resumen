@@ -3,20 +3,6 @@ class PetitionsController < ApplicationController
   require "net/http"
   require "json"
   def crypto
-=begin
-    # Busca
-    url = 'https://api.coingecko.com/api/v3/search/trending'
-
-    altcoin_id = 'bitcoin'
-    url = "https://api.coingecko.com/api/v3/coins/#{altcoin_id}"
-    url = URI("#{url}")
-    https = Net::HTTP.new(url.host, url.port)
-    https.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    response = https.request(request)
-
-    data_crypto = JSON.parse(response.read_body)
-=end
     # Busca las tendencias!
     trends = do_request("https://api.coingecko.com/api/v3/search/trending")
 
