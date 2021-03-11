@@ -48,7 +48,7 @@ Ayudándose del comando `rails new <nombre de su aplicación> --api`, construya 
 Al hacer un GET a este endpoint: https://api.coingecko.com/api/v3/search/trending usted obtendrá la lista de las 7 altcoins en tendencias: Son las 7
 altcoins más buscadas por los usuarios de coingecko en las últimas 24 horas. Pero nos entrega muy poco detalle sobre cada una de estas altcoins.
 
-Invente un endpoint en su aplicación llamado `/trends`, que al llamarse busque las 7 altcoins en coingecko de tendencia, y para cada una de ellas,
+Invente un endpoint en su aplicación llamado `/crypto`, que al llamarse busque las 7 altcoins en coingecko de tendencia, y para cada una de ellas,
 haga otro llamado a coingecko para obtener su último valor tanto en dólar como en su moneda local. Este último punto es opcional, porque SIEMPRE
 el valor de la criptomoneda que está consultand se encontrará en USD. Pero si tiene suerte la encontrará en su moneda local (en el caso de Chile, CLP)
 
@@ -56,11 +56,14 @@ Para consultar los detalles de la criptomoneda en específico,  puede usar este 
 Debe reemplazar el `:id` por el id de cada una de las monedas obtenidas en el llamado a `trending`
 Un ejemplo lo tiene aquí de como llamar a este último endpoint, para sacar los datos del bitcoin: https://api.coingecko.com/api/v3/coins/bitcoin
 
+Por otra parte, haga un modelo que le permita ver cuantas veces alguien accedió a su endpoint
+`/crypto`. Puede ser un poco "overkill" (matar una mosca con un tanque) hacer un scaffold para generar ese modelo. Pero aunque existan soluciones más simples,
+hágalo para ver como le genera una API REST automáticamente.
+
 PISTAS / HINT
 
 PISTA: En el endpoint de coingecko para obtener el detalle de una criptomoneda, del JSON que recibe vaya a "market-data", luego a "current-price", y ahí
 tendrá un hash que indica el valor en moneda FIAT de la criptomoneda. Si quiere saber el precio en dólar, debe buscar en ese hash la key "usd".
 
-Por otra parte, haga un recurso que siga el patrón de diseño REST (puede utilizar scaffold para esto) que modele un historial de llamados al endpoint `/trends`
 
 
