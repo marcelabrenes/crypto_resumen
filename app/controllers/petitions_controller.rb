@@ -6,11 +6,16 @@ class PetitionsController < ApplicationController
     # Busca las tendencias!
     trends = do_request("https://api.coingecko.com/api/v3/search/trending")
 
+    altocoin_ids = trends["coins"].map {|coin| coin['item']['id']}
+    puts coin_ids
+
 
     # Aqui busca el detalle solo de bitcoin. Adapte esta línea para hacer esta request
     # para las 7 altcoins encontradas y guardadas en la variable trends.
-    altcoin_id = 'bitcoin'
-    data_altcoin = do_request("https://api.coingecko.com/api/v3/coins/#{altcoin_id}")
+    
+    result = altcoin_ids.map do |alcoin_id| 
+    altcoin = do_request("https://api.coingecko.com/api/v3/coins/#{altcoin_id}"){id: altcoin["id"], symbol: altcoin["symbol"],value:  alcoin["market_data"]["current_price"]["usd"]}
+    end
 
 
 
@@ -20,8 +25,8 @@ class PetitionsController < ApplicationController
     # del dólar en su moneda local en alguna api, y calcule el valor de estos criptoactivos en
     # su moneda local.
     # Visite su sitio: http://localhost:3000/petitions/crypto para ver como esto funciona.
-    render json: { trends: trends, data_crypto: data_altcoin}
-
+    #render json: { trends: trends, data_crypto: data_altcoin}
+    render json: {result: result}
   end
 
   private
